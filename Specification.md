@@ -7,7 +7,6 @@
 <li>Find / Replace - Ziyao Wang</li>
 <li>Categorization - </li>
 <li>Association - </li>
-<li>Combining - Ziyao Wang</li>
 </ul>
 <br/>
 <h2>Task Description</h2>
