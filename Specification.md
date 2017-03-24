@@ -12,6 +12,9 @@
 <br/>
 <h2>Task Description</h2>
 <h3>***ALL CODE FOR DIFFERENT TASKS SHOULD BE IN JAVASCRIPT, AND UPLOADED WITHIN FUNCTIONS***</h3>
+<h3>***ALL CODE SHOULD BE TESTED SEPARATELY WITH A DOCUMENT TO WORK BEFORE FINAL SUBMISSION***</h3>
+<h3>***IT IS SUGGESTED TO CREATE SEPARATE BRANCHES AND MERGE WHEN YOU ARE CONFIDENT WITH THE CODE TO WORK!***</h3>
+
 <h3>Document Processing</h3>
 <p><b>Goal:</b> This task focuses on categorizing the original document into different class.</p>
 <p><b>Input:</b>A document in .txt file.</p>
@@ -33,6 +36,20 @@
 <p><b>Output:</b>No. Only modifies the DOM Nodes.</p>
 <h4>What to upload</h4>
 <p>function find_replace(new_val). It modifies the dom and replace the word with new_val.</p>
+
+<h3>Categorization</h3>
+<p><b>Goal:</b> This task focuses on matching user selected word with the class user select. We have a hard coded list of classes we have. It will show a drop box to ask user select a class for this selected word.</p>
+<p><b>Input:</b>A string/word user selected. A class user selectd.</p>
+<p><b>Output:</b>No. Only modifies the DOM Nodes.</p>
+<h4>What to upload</h4>
+<p>function categorize(word,class). It modifies the dom and change all the same word to match the new class.</p>
+
+<h3>Association</h3>
+<p><b>Goal:</b>This task asks user to associate a word with generic types. The specific requirement will be disscussed later.</p>
+<p><b>Input:</b>A string/word user selected. Pre-defined word or user typed word he/she wants this word to associate with.</p>
+<p><b>Output:</b>No. Only modifies the DOM Nodes.</p>
+<h4>What to upload</h4>
+<p>function categorize(word,type). It modifies the dom and change all the same word to associate with the new word.</p>
 
 
 
