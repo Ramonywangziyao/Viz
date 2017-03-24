@@ -13,6 +13,9 @@
 <h3>***ALL CODE FOR DIFFERENT TASKS SHOULD BE IN JAVASCRIPT, AND UPLOADED WITHIN FUNCTIONS***</h3>
 <h3>***ALL CODE SHOULD BE TESTED SEPARATELY WITH A DOCUMENT TO WORK BEFORE FINAL SUBMISSION***</h3>
 <h3>***IT IS SUGGESTED TO CREATE SEPARATE BRANCHES AND MERGE WHEN YOU ARE CONFIDENT WITH THE CODE TO WORK!***</h3>
+<br/>
+<h3>Important: For modifing the same word in document, no need to process the whole dom to search again. I will try to create a data structure to optimize this part, and hopefully I will upload a function for searching so you can use that.</h3>
+
 
 <h3>Document Processing</h3>
 <p><b>Goal:</b> This task focuses on categorizing the original document into different class.</p>
