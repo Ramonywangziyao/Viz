@@ -48,7 +48,7 @@
 <p><b>Input:</b>A string/word user selected. Pre-defined word or user typed word he/she wants this word to associate with.</p>
 <p><b>Output:</b>No. Only modifies the DOM Nodes.</p>
 <h4>What to upload</h4>
-<p>function categorize(word,type). It modifies the dom and change all the same word to associate with the new word.</p>
+<p>function associate(word,type). It modifies the dom and change all the same word to associate with the new word.</p>
 
 
 
