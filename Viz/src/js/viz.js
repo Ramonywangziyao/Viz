@@ -67,7 +67,6 @@ window.onload = function() {
     }
 
 
-
     //add event listener for upload button.
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0]
@@ -133,6 +132,7 @@ window.onload = function() {
                     } else {
                         menuItems[0].innerHTML = "Undelete"
                     }
+                    onEditing = true
                 } else {
                     Array.prototype.forEach.call(dictionary_sameword[str], function(itemX, index) {
                         itemX.style.color = ""
@@ -141,6 +141,7 @@ window.onload = function() {
                     clicked = false
                     tooMenu.style.animation = "menuHide 0.5s forwards"
                     menuSet.style.animation = "fadeout 0.2s forwards"
+                    onEditing = false
                 }
             })
 
