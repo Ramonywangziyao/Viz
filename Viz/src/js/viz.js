@@ -118,7 +118,7 @@ window.onload = function() {
                             itemX.style.color = ""
                         })
                     }
-                    docText.style.color = "#353535"
+                    docText.style.color = "#0f0f10"
                     Array.prototype.forEach.call(dictionary_sameword[str], function(itemX, index) {
                         itemX.style.color = "#ffffff"
                     })
@@ -195,11 +195,12 @@ window.onload = function() {
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
             itemX.innerHTML = replaceTextField.value;
             itemX.style.textDecoration = "none"
+            itemX.style.opacity = "1"
         })
-
+        menuItems[0].innerHTML = "Delete"
         //update the dictionary for the word
         dictionary_sameword[newStr] = dictionary_sameword[lastClicked]
-        delete_set[newStr] = delete_set[lastClicked]
+        delete_set[newStr] = false
 
         //delete the original word key value pair
         delete dictionary_sameword[lastClicked]
@@ -284,12 +285,14 @@ window.onload = function() {
             menuItems[0].innerHTML = "Undelete"
             Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
                 itemX.style.textDecoration = "line-through"
+                itemX.style.opacity = "0.4"
             })
         } else {
             delete_set[lastClicked] = false
             menuItems[0].innerHTML = "Delete"
             Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
                 itemX.style.textDecoration = "none"
+                itemX.style.opacity = "1"
             })
         }
     }
