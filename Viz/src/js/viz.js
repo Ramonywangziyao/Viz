@@ -280,17 +280,22 @@ window.onload = function() {
         })
     })
 
+    //detele function
     function del() {
+        //delete
         if (delete_set[lastClicked] == false) {
             delete_set[lastClicked] = true
             menuItems[0].innerHTML = "Undelete"
+            //cross words
             Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
                 itemX.style.textDecoration = "line-through"
                 itemX.style.opacity = "0.4"
             })
         } else {
+            //undelete
             delete_set[lastClicked] = false
             menuItems[0].innerHTML = "Delete"
+            //uncross
             Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
                 itemX.style.textDecoration = "none"
                 itemX.style.opacity = "1"
@@ -298,6 +303,7 @@ window.onload = function() {
         }
     }
 
+    //replace function
     function replace() {
         replaceTextField.value = ""
         replace_back.style.display = "block"
