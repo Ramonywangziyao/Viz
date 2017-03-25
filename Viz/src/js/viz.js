@@ -193,7 +193,7 @@ window.onload = function() {
 
         //modify the text for each origin node
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
-            itemX.innerHTML = newStr;
+            itemX.innerHTML = replaceTextField.value;
             itemX.style.textDecoration = "none"
         })
 
