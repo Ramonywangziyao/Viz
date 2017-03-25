@@ -25,7 +25,7 @@ window.onload = function() {
     var tooMenu = document.getElementById('toolMenu')
     var menuSet = document.getElementById('toolSet')
     var menuIcons = document.getElementsByClassName('toolToken')
-
+    var menuItems = menuSet.getElementsByTagName('li')
     //other required for functioning
     var words
     var text
@@ -38,6 +38,14 @@ window.onload = function() {
     //just call dictionary_sameword[string]    this string must be in lower case, and all special char must be removed. use string.toLowerCase().replace(/[^a-zA-Z ]/g, "")
     var dictionary_sameword = {}
 
+    var delete_set = {}
+
+    var replace_back = document.getElementById('replaceWindow')
+    var replace_field = document.getElementById('replacetextfield')
+    var replaceConfirm = document.getElementById('confirmButton')
+    var replaceClose = document.getElementById('cancelInput')
+    var replaceTextField = document.getElementById('replaceWordField')
+
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
         Array.prototype.forEach.call(spanWords, function(ele, idx) {
@@ -46,6 +54,7 @@ window.onload = function() {
                 var arr = Array()
                 arr.push(ele)
                 dictionary_sameword[str] = arr
+                delete_set[str] = false
             } else {
                 dictionary_sameword[str].push(ele)
             }
@@ -117,6 +126,13 @@ window.onload = function() {
                     lastClicked = str
                     tooMenu.style.animation = "menuShow 0.5s forwards"
                     menuSet.style.animation = "fadein 1.5s forwards"
+
+                    //modify the menu delete for the clicked word
+                    if (delete_set[lastClicked] == false) {
+                        menuItems[0].innerHTML = "Delete"
+                    } else {
+                        menuItems[0].innerHTML = "Undelete"
+                    }
                 } else {
                     Array.prototype.forEach.call(dictionary_sameword[str], function(itemX, index) {
                         itemX.style.color = ""
@@ -168,6 +184,39 @@ window.onload = function() {
         uploadBt.style.animation = 'outbt 0.6s forwards'
     })
 
+    //replace button confirm button clicked
+    replaceConfirm.addEventListener('click', function() {
+        //hide the replace  window
+        replace_back.style.display = "none"
+        replace_field.style.display = "none"
+        var newStr = replaceTextField.value.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+
+        //modify the text for each origin node
+        Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+            itemX.innerHTML = newStr;
+            itemX.style.textDecoration = "none"
+        })
+
+        //update the dictionary for the word
+        dictionary_sameword[newStr] = dictionary_sameword[lastClicked]
+        delete_set[newStr] = delete_set[lastClicked]
+
+        //delete the original word key value pair
+        delete dictionary_sameword[lastClicked]
+        delete delete_set[lastClicked]
+
+        //update the last clicked item
+        lastClicked = newStr
+    })
+
+    replaceConfirm.addEventListener('mouseover', function() {
+        replaceConfirm.style.animation = 'onbt 0.6s forwards'
+    })
+
+    replaceConfirm.addEventListener('mouseout', function() {
+        replaceConfirm.style.animation = 'outbt 0.6s forwards'
+    })
+
     //add animation and click function to cancel button
     cancelBt.addEventListener('click', function() {
         uploadBt.style.display = 'block'
@@ -187,6 +236,20 @@ window.onload = function() {
         cancelBt.style.animation = 'crsout 0.6s forwards'
     })
 
+    //replace window cancel button animations and style
+    replaceClose.addEventListener('click', function() {
+        replace_back.style.display = "none"
+        replace_field.style.display = "none"
+    })
+
+    replaceClose.addEventListener('mouseOver', function() {
+        replaceClose.style.animation = 'crson 0.6s forwards'
+    })
+
+    replaceClose.addEventListener('mouseout', function() {
+        replaceClose.style.animation = 'crsout 0.6s forwards'
+    })
+
     //add click listener to menu options.
     //*****call your function here for different tasks here*****
     Array.prototype.forEach.call(menuIcons, function(item) {
@@ -194,10 +257,10 @@ window.onload = function() {
         item.addEventListener('click', function() {
             var menu = item.innerHTML.toLowerCase()
             // delete,find/replace,cate,asso
-            if (menu == "delete") {
-                // function
-            } else if (menu == "find / replace") {
-                // function
+            if (menu == "delete" || menu == "undelete") {
+                del()
+            } else if (menu == "replace") {
+                replace()
             } else if (menu == "categorize") {
                 // function
             } else if (menu == "associate") {
@@ -215,5 +278,26 @@ window.onload = function() {
         })
     })
 
+    function del() {
+        if (delete_set[lastClicked] == false) {
+            delete_set[lastClicked] = true
+            menuItems[0].innerHTML = "Undelete"
+            Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+                itemX.style.textDecoration = "line-through"
+            })
+        } else {
+            delete_set[lastClicked] = false
+            menuItems[0].innerHTML = "Delete"
+            Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+                itemX.style.textDecoration = "none"
+            })
+        }
+    }
+
+    function replace() {
+        replaceTextField.value = ""
+        replace_back.style.display = "block"
+        replace_field.style.display = "block"
+    }
 
 }

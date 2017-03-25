@@ -95,6 +95,8 @@ body {
     color: white;
     margin: auto;
     margin-top: 400px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #cancel-button {
@@ -198,6 +200,11 @@ a:hover {
     cursor: hand;
 }
 
+span {
+    cursor: pointer;
+    cursor: hand;
+}
+
 #docText {
     color: white;
 }
@@ -213,6 +220,74 @@ a:hover {
     font-size: 1.4em;
     line-height: 150%;
     margin-bottom: 100px;
+}
+
+#replaceWindow {
+    background-color: black;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: fixed;
+    top: 0;
+    display: none;
+}
+
+#replacetextfield {
+    background-color: black;
+    position: fixed;
+    width: 300px;
+    height: 150px;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    padding-top: 20px;
+    display: none;
+}
+
+#replaceWordField {
+    border: 0;
+    background-color: #131416;
+    color: white;
+    position: relative;
+    padding-left: 5px;
+    margin-left: 20px;
+    font-size: 1.5em;
+}
+
+#replaceTitle {
+    margin-left: 20px;
+}
+
+#confirmButtonText {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#confirmButton {
+    position: relative;
+    margin: auto;
+    padding-left: -30px;
+    width: 80px;
+    height: 30px;
+    background-color: #ed0769;
+    top: 5px;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    cursor: hand;
+}
+
+#cancelInput {
+    position: absolute;
+    float: right;
+    width: 15px;
+    top: 20px;
+    right: 15px;
 }
 
 footer {
