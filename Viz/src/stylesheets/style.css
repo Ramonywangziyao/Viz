@@ -194,6 +194,8 @@ a:hover {
 #toolSet li {
     display: inline;
     margin: 40px;
+    cursor: pointer;
+    cursor: hand;
 }
 
 #docText {
