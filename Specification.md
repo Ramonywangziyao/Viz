@@ -14,7 +14,7 @@
 <h3>***ALL CODE SHOULD BE TESTED SEPARATELY WITH A DOCUMENT TO WORK BEFORE FINAL SUBMISSION***</h3>
 <h3>***IT IS SUGGESTED TO CREATE SEPARATE BRANCHES AND MERGE WHEN YOU ARE CONFIDENT WITH THE CODE TO WORK!***</h3>
 <br/>
-<h3>Important: For modifing the same word in document, no need to process the whole dom to search again. I will try to create a data structure to optimize this part, and hopefully I will upload a function for searching so you can use that.</h3>
+<h3>Important: For modifing the same word in document, no need to process the whole dom to search again. Use the dictionary commented in the code to retrieve all nodes of the same word.</h3>
 
 
 <h3>Document Processing</h3>
