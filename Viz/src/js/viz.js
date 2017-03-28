@@ -196,6 +196,7 @@ window.onload = function() {
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
             itemX.innerHTML = replaceTextField.value;
             itemX.style.textDecoration = "none"
+            itemX.style.fontStyle = "italic"            
             itemX.style.opacity = "1"
         })
         menuItems[0].innerHTML = "Delete"
