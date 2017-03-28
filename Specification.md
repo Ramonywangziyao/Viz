@@ -5,7 +5,7 @@
 <li>Document Processing - </li>
 <li>Del - Ziyao Wang</li>
 <li>Find / Replace - Ziyao Wang</li>
-<li>Categorization - </li>
+<li>Categorization - Matt Turley</li>
 <li>Association - </li>
 </ul>
 <br/>
