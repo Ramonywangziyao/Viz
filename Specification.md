@@ -6,7 +6,7 @@
 <li>Del - Ziyao Wang</li>
 <li>Find / Replace - Ziyao Wang</li>
 <li>Categorization - Matt Turley</li>
-<li>Association - </li>
+<li>Association - Ritika Maknoor </li>
 </ul>
 <br/>
 <h2>Task Description</h2>
