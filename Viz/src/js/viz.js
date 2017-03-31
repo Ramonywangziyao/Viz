@@ -117,7 +117,7 @@ window.onload = function() {
                             itemX.style.color = ""
                         })
                     }
-                    docText.style.color = "#0f0f10"
+                    docText.style.color = "#1f1f20"
                     Array.prototype.forEach.call(dictionary_sameword[str], function(itemX, index) {
                         itemX.style.color = "#ffffff"
                     })
@@ -125,7 +125,7 @@ window.onload = function() {
                     lastClicked = str
                     tooMenu.style.animation = "menuShow 0.5s forwards"
                     menuSet.style.animation = "fadein 1.5s forwards"
-
+                    cancelBt.style.display = "none"
                     //modify the menu delete for the clicked word
                     if (delete_set[lastClicked] == false) {
                         menuItems[0].innerHTML = "Delete"
@@ -134,14 +134,7 @@ window.onload = function() {
                     }
                     onEditing = true
                 } else {
-                    Array.prototype.forEach.call(dictionary_sameword[str], function(itemX, index) {
-                        itemX.style.color = ""
-                    })
-                    docText.style.color = "#ffffff"
-                    clicked = false
-                    tooMenu.style.animation = "menuHide 0.5s forwards"
-                    menuSet.style.animation = "fadeout 0.2s forwards"
-                    onEditing = false
+                    cancelEdit()
                 }
             })
 
@@ -154,6 +147,18 @@ window.onload = function() {
                 item.style.animation = 'outword 0.3s forwards'
             })
         })
+    }
+
+    function cancelEdit(){
+        Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+            itemX.style.color = ""
+        })
+        docText.style.color = "#ffffff"
+        clicked = false
+        tooMenu.style.animation = "menuHide 0.5s forwards"
+        menuSet.style.animation = "fadeout 0.2s forwards"
+        onEditing = false
+        cancelBt.style.display = "block"
     }
 
     //call when reader init. append each word as span to docText.
@@ -270,6 +275,9 @@ window.onload = function() {
                 // function
             } else if (menu == "associate") {
                 // function
+            } else if (menu == "cancel") {
+                // function
+                cancelEdit()
             }
         })
 
