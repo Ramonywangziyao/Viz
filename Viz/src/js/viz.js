@@ -194,10 +194,13 @@ window.onload = function() {
 
         //modify the text for each origin node
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
-            itemX.innerHTML = replaceTextField.value;
+            var val = itemX.innerHTML.charAt(itemX.innerHTML.length-1)
+            //check for ending special characters
+            itemX.innerHTML = val.match(/[^a-zA-Z ]/g) ? replaceTextField.value+val : replaceTextField.value
             itemX.style.textDecoration = "none"
             itemX.style.opacity = "1"
         })
+
         menuItems[0].innerHTML = "Delete"
         //update the dictionary for the word
         dictionary_sameword[newStr] = dictionary_sameword[lastClicked]
