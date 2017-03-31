@@ -2,7 +2,7 @@
 <br/>
 <h2>Task SignUp</h2>
 <ul>
-<li>Document Processing - </li>
+<li>Document Processing - Daniel Blackford </li>
 <li>Del - Ziyao Wang</li>
 <li>Find / Replace - Ziyao Wang</li>
 <li>Categorization - Matt Turley</li>
