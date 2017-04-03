@@ -46,6 +46,12 @@ window.onload = function() {
     var replaceClose = document.getElementById('cancelInput')
     var replaceTextField = document.getElementById('replaceWordField')
 
+    var categorize_back = document.getElementById('categorizeWindow')
+    var categorize_field = document.getElementById('categorizeRadioField')
+    var categorizeConfirm = document.getElementById('confirmButton_Categorize')
+    var categorizeClose = document.getElementById('cancelInput_Categorize')
+    var categorizeTextField = document.getElementById('categorizeWordField')
+
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
         Array.prototype.forEach.call(spanWords, function(ele, idx) {
@@ -203,6 +209,7 @@ window.onload = function() {
             //check for ending special characters
             itemX.innerHTML = val.match(/[^a-zA-Z ]/g) ? replaceTextField.value+val : replaceTextField.value
             itemX.style.textDecoration = "none"
+            itemX.style.fontStyle = "italic"
             itemX.style.opacity = "1"
         })
 
@@ -260,6 +267,77 @@ window.onload = function() {
         replaceClose.style.animation = 'crsout 0.6s forwards'
     })
 
+/*************************************************************************/
+//Categorize window
+/*************************************************************************/
+    //categorize button confirm button clicked
+    categorizeConfirm.addEventListener('click', function() {
+        //hide the categorize  window
+        categorize_back.style.display = "none"
+        categorize_field.style.display = "none"
+        var newStr = categorizeTextField.value.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+
+        //modify the text for each origin node
+        Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+            itemX.innerHTML = categorizeTextField.value;                //get what the radio selection is and add to dict
+            itemX.style.textDecoration = "none"
+            itemX.style.opacity = "1"
+        })
+        menuItems[0].innerHTML = "Delete"
+        //update the dictionary for the word
+        dictionary_sameword[newStr] = dictionary_sameword[lastClicked]  //dict for the word; update this
+        delete_set[newStr] = false
+
+        //delete the original word key value pair
+        delete dictionary_sameword[lastClicked]
+        delete delete_set[lastClicked]
+
+        //update the last clicked item
+        lastClicked = newStr
+    })
+
+    categorizeConfirm.addEventListener('mouseover', function() {
+        categorizeConfirm.style.animation = 'onbt 0.6s forwards'
+    })
+
+    categorizeConfirm.addEventListener('mouseout', function() {
+        categorizeConfirm.style.animation = 'outbt 0.6s forwards'
+    })
+
+    //add animation and click function to cancel button
+    cancelBt.addEventListener('click', function() {
+        uploadBt.style.display = 'block'
+        cancelBt.style.display = 'none'
+        docText.innerHTML = ''
+        footer.style.position = "absolute"
+        footer.style.bottom = "0"
+        tooMenu.style.animation = "menuHide 0.5s forwards"
+        menuSet.style.animation = "fadeout 0.2s forwards"
+    })
+
+    cancelBt.addEventListener('mouseover', function() {
+        cancelBt.style.animation = 'crson 0.6s forwards'
+    })
+
+    cancelBt.addEventListener('mouseout', function() {
+        cancelBt.style.animation = 'crsout 0.6s forwards'
+    })
+
+    //categorize window cancel button animations and style
+    categorizeClose.addEventListener('click', function() {
+        categorize_back.style.display = "none"
+        categorize_field.style.display = "none"
+    })
+
+    categorizeClose.addEventListener('mouseOver', function() {
+        categorizeClose.style.animation = 'crson 0.6s forwards'
+    })
+
+    categorizeClose.addEventListener('mouseout', function() {
+        categorizeClose.style.animation = 'crsout 0.6s forwards'
+    })
+/*************************************************************************/
+
     //add click listener to menu options.
     //*****call your function here for different tasks here*****
     Array.prototype.forEach.call(menuIcons, function(item) {
@@ -272,7 +350,7 @@ window.onload = function() {
             } else if (menu == "replace") {
                 replace()
             } else if (menu == "categorize") {
-                // function
+                categorize()
             } else if (menu == "associate") {
                 // function
             } else if (menu == "cancel") {
@@ -319,6 +397,12 @@ window.onload = function() {
         replaceTextField.value = ""
         replace_back.style.display = "block"
         replace_field.style.display = "block"
+    }
+
+    //categorize function
+    function categorize() {
+        categorize_back.style.display = "block"
+        categorize_field.style.display = "block"
     }
 
 }
