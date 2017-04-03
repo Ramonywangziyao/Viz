@@ -203,6 +203,7 @@ window.onload = function() {
             //check for ending special characters
             itemX.innerHTML = val.match(/[^a-zA-Z ]/g) ? replaceTextField.value+val : replaceTextField.value
             itemX.style.textDecoration = "none"
+            itemX.style.fontStyle = "italic"            
             itemX.style.opacity = "1"
         })
 
