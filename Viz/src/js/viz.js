@@ -1,5 +1,5 @@
 /*
-  Author : Ziyao Wang
+  Authors : Ziyao Wang / Ritika Maknoor / Matthew Turley / Daniel Blackford
   Created : 2017 Feb
 
   Project : viz
