@@ -403,6 +403,18 @@ window.onload = function() {
     function categorize() {
         categorize_back.style.display = "block"
         categorize_field.style.display = "block"
+        var categorize_submit = document.getElementById('confirmButton_Categorize')
+
+        categorize_submit.addEventListener('click', function() {
+          var my_categories = document.getElementsByName("categories")
+          // For loop to get the selected element
+          for (var i = 0, length = my_categories.length; i < length; i++) {
+            if (my_categories[i].checked) {
+              // This is the class that was selected, add to the dictinary
+              alert(my_categories[i].value)
+            }
+          }
+        })
     }
 
 }
