@@ -50,7 +50,9 @@ window.onload = function() {
     var categorize_field = document.getElementById('categorizeRadioField')
     var categorizeConfirm = document.getElementById('confirmButton_Categorize')
     var categorizeClose = document.getElementById('cancelInput_Categorize')
-    var categorizeTextField = document.getElementById('categorizeWordField')
+
+    // Dictinary used for Categorize
+    var categorize_dictinary = []
 
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
@@ -272,28 +274,37 @@ window.onload = function() {
 /*************************************************************************/
     //categorize button confirm button clicked
     categorizeConfirm.addEventListener('click', function() {
+        var my_category
+        // Store the word that was clicked, without any extra text
+        var new_string = lastClicked.toLowerCase().replace(/[^a-zA-Z ]/g, "")
         //hide the categorize  window
         categorize_back.style.display = "none"
         categorize_field.style.display = "none"
-        var newStr = categorizeTextField.value.toLowerCase().replace(/[^a-zA-Z ]/g, "")
 
         //modify the text for each origin node
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
-            itemX.innerHTML = categorizeTextField.value;                //get what the radio selection is and add to dict
+            var my_categories = document.getElementsByName("categories")
+            // For loop to get the selected element
+            for (var i = 0, length = my_categories.length; i < length; i++) {
+              if (my_categories[i].checked) {
+                my_category = my_categories[i].value
+              }
+            }
+
             itemX.style.textDecoration = "none"
             itemX.style.opacity = "1"
         })
-        menuItems[0].innerHTML = "Delete"
-        //update the dictionary for the word
-        dictionary_sameword[newStr] = dictionary_sameword[lastClicked]  //dict for the word; update this
-        delete_set[newStr] = false
+
+        // The word value pair, that will be pushed to the array
+        var word_category_pair = {word:new_string, category:my_category}
+
+        // Push to dictinary
+        categorize_dictinary.push(word_category_pair)
 
         //delete the original word key value pair
-        delete dictionary_sameword[lastClicked]
-        delete delete_set[lastClicked]
 
-        //update the last clicked item
-        lastClicked = newStr
+        // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
+        menuItems[0].innerHTML = "Delete"
     })
 
     categorizeConfirm.addEventListener('mouseover', function() {
@@ -403,18 +414,6 @@ window.onload = function() {
     function categorize() {
         categorize_back.style.display = "block"
         categorize_field.style.display = "block"
-        var categorize_submit = document.getElementById('confirmButton_Categorize')
-
-        categorize_submit.addEventListener('click', function() {
-          var my_categories = document.getElementsByName("categories")
-          // For loop to get the selected element
-          for (var i = 0, length = my_categories.length; i < length; i++) {
-            if (my_categories[i].checked) {
-              // This is the class that was selected, add to the dictinary
-              alert(my_categories[i].value)
-            }
-          }
-        })
     }
 
 }
