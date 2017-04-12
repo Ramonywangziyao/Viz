@@ -298,10 +298,24 @@ window.onload = function() {
         // The word value pair, that will be pushed to the array
         var word_category_pair = {word:new_string, category:my_category}
 
+        // Delete old instance of word from dictinary
+        for (var j =0, length = categorize_dictinary.length; j<length; j++) {
+          // Chrome kept giving me an error when the comparison was true
+          // So I put it in a try catch block to remove it it an error is thrown
+          try {
+            if (categorize_dictinary[j].word == new_string) {
+              categorize_dictinary.splice(j, 1)
+            }
+          } catch (e) {
+            if(e) {
+              categorize_dictinary.splice(j, 1)
+            }
+          }
+
+        }
+
         // Push to dictinary
         categorize_dictinary.push(word_category_pair)
-
-        //delete the original word key value pair
 
         // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
         menuItems[0].innerHTML = "Delete"
