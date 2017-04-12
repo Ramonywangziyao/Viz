@@ -53,7 +53,9 @@ window.onload = function() {
 
     var associate_back = document.getElementById('associateWindow')
     var associate_field = document.getElementById('associatetextfield')
-    var associateConfirm = document.getElementById('confirmButton_Associate')
+    var associateConfirm = document.getElementById('confirmButtonText_Associate')
+    //var addAssociation_button = document.getElementById('submit-assoc')
+    //var showAllAssociations_button = document.getElementById('display-assoc')
     var associateClose = document.getElementById('cancelInput_Associate')
     var associateTextField = document.getElementById('associateWordField')
 
@@ -371,55 +373,68 @@ window.onload = function() {
         categorizeClose.style.animation = 'crsout 0.6s forwards'
     })
 /*************************************************************************/
-
 /*************************************************************************/
 //Associate window
 /*************************************************************************/
     //associate button confirm button clicked
     associateConfirm.addEventListener('click', function() {
-        var my_each_association
-        // Store the word that was clicked, without any extra text
-        var new_string = lastClicked.toLowerCase().replace(/[^a-zA-Z ]/g, "")
-        //hide the associate  window
-        associate_back.style.display = "none"
-        associate_field.style.display = "none"
 
-        //modify the text for each origin node
-        Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
-            var my_associations = document.getElementsByName("associations")
-            // For loop to get the selected element
-            for (var i = 0, length = my_associations.length; i < length; i++) {
-              if (my_associations[i].checked) {
-                my_each_association = my_associations[i].value
-              }
-            }
+        var associationsArray = [];
+        var input = document.getElementById('associateWordField');
+        var screen = document.getElementById('screen');
 
-            itemX.style.textDecoration = "none"
-            itemX.style.opacity = "1"
-        })
+        document.getElementById('submit-assoc').onclick = function () {
+            associationsArray.push(input.value);
+            screen.innerHTML = input.value;
+        };
+        document.getElementById('display-assoc').onclick = function () {
+            screen.innerHTML = associationsArray
+        };
 
-        // The word value pair, that will be pushed to the array
-        var word_association_pair = {word:new_string, association:my_each_association}
 
-        // Delete old instance of word from dictinary
-        for (var j =0, length = associate_dictinary.length; j<length; j++) {
-          try {
-            if (associate_dictinary[j].word == new_string) {
-              associate_dictinary.splice(j, 1)
-            }
-          } catch (e) {
-            if(e) {
-              associate_dictinary.splice(j, 1)
-            }
-          }
+        // var my_each_association
+        // // Store the word that was clicked, without any extra text
+        // var new_string = lastClicked.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+        // //hide the associate  window
+        // associate_back.style.display = "none"
+        // associate_field.style.display = "none"
 
-        }
+        // //modify the text for each origin node
+        // Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+        //     var my_associations = document.getElementsByName("associations")
+        //     // For loop to get the selected element
+        //     for (var i = 0, length = my_associations.length; i < length; i++) {
+        //       if (my_associations[i].checked) {
+        //         my_each_association = my_associations[i].value
+        //       }
+        //     }
 
-        // Push to dictinary
-        associate_dictinary.push(word_association_pair)
+        //     itemX.style.textDecoration = "none"
+        //     itemX.style.opacity = "1"
+        // })
 
-        // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
-        menuItems[0].innerHTML = "Delete"
+        // // The word value pair, that will be pushed to the array
+        // var word_association_pair = {word:new_string, association:my_each_association}
+
+        // // Delete old instance of word from dictinary
+        // for (var j =0, length = associate_dictinary.length; j<length; j++) {
+        //   try {
+        //     if (associate_dictinary[j].word == new_string) {
+        //       associate_dictinary.splice(j, 1)
+        //     }
+        //   } catch (e) {
+        //     if(e) {
+        //       associate_dictinary.splice(j, 1)
+        //     }
+        //   }
+
+        // }
+
+        // // Push to dictinary
+        // associate_dictinary.push(word_association_pair)
+
+        // // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
+        // menuItems[0].innerHTML = "Delete"
     })
 
     associateConfirm.addEventListener('mouseover', function() {
