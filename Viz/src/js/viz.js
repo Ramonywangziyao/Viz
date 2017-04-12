@@ -51,8 +51,17 @@ window.onload = function() {
     var categorizeConfirm = document.getElementById('confirmButton_Categorize')
     var categorizeClose = document.getElementById('cancelInput_Categorize')
 
+    var associate_back = document.getElementById('associateWindow')
+    var associate_field = document.getElementById('associatetextfield')
+    var associateConfirm = document.getElementById('confirmButton_Associate')
+    var associateClose = document.getElementById('cancelInput_Associate')
+    var associateTextField = document.getElementById('associateWordField')
+
     // Dictinary used for Categorize
     var categorize_dictinary = []
+
+    // Dictinary used for Associate
+    var associate_dictinary = []
 
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
@@ -363,6 +372,98 @@ window.onload = function() {
     })
 /*************************************************************************/
 
+/*************************************************************************/
+//Associate window
+/*************************************************************************/
+    //associate button confirm button clicked
+    associateConfirm.addEventListener('click', function() {
+        var my_each_association
+        // Store the word that was clicked, without any extra text
+        var new_string = lastClicked.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+        //hide the associate  window
+        associate_back.style.display = "none"
+        associate_field.style.display = "none"
+
+        //modify the text for each origin node
+        Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
+            var my_associations = document.getElementsByName("associations")
+            // For loop to get the selected element
+            for (var i = 0, length = my_associations.length; i < length; i++) {
+              if (my_associations[i].checked) {
+                my_each_association = my_associations[i].value
+              }
+            }
+
+            itemX.style.textDecoration = "none"
+            itemX.style.opacity = "1"
+        })
+
+        // The word value pair, that will be pushed to the array
+        var word_association_pair = {word:new_string, association:my_each_association}
+
+        // Delete old instance of word from dictinary
+        for (var j =0, length = associate_dictinary.length; j<length; j++) {
+          try {
+            if (associate_dictinary[j].word == new_string) {
+              associate_dictinary.splice(j, 1)
+            }
+          } catch (e) {
+            if(e) {
+              associate_dictinary.splice(j, 1)
+            }
+          }
+
+        }
+
+        // Push to dictinary
+        associate_dictinary.push(word_association_pair)
+
+        // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
+        menuItems[0].innerHTML = "Delete"
+    })
+
+    associateConfirm.addEventListener('mouseover', function() {
+        associateConfirm.style.animation = 'onbt 0.6s forwards'
+    })
+
+    associateConfirm.addEventListener('mouseout', function() {
+        associateConfirm.style.animation = 'outbt 0.6s forwards'
+    })
+
+    //add animation and click function to cancel button
+    cancelBt.addEventListener('click', function() {
+        uploadBt.style.display = 'block'
+        cancelBt.style.display = 'none'
+        docText.innerHTML = ''
+        footer.style.position = "absolute"
+        footer.style.bottom = "0"
+        tooMenu.style.animation = "menuHide 0.5s forwards"
+        menuSet.style.animation = "fadeout 0.2s forwards"
+    })
+
+    cancelBt.addEventListener('mouseover', function() {
+        cancelBt.style.animation = 'crson 0.6s forwards'
+    })
+
+    cancelBt.addEventListener('mouseout', function() {
+        cancelBt.style.animation = 'crsout 0.6s forwards'
+    })
+
+    //associate window cancel button animations and style
+    associateClose.addEventListener('click', function() {
+        associate_back.style.display = "none"
+        associate_field.style.display = "none"
+    })
+
+    associateClose.addEventListener('mouseOver', function() {
+        associateClose.style.animation = 'crson 0.6s forwards'
+    })
+
+    associateClose.addEventListener('mouseout', function() {
+        associateClose.style.animation = 'crsout 0.6s forwards'
+    })
+/*************************************************************************/
+
     //add click listener to menu options.
     //*****call your function here for different tasks here*****
     Array.prototype.forEach.call(menuIcons, function(item) {
@@ -377,8 +478,8 @@ window.onload = function() {
             } else if (menu == "categorize") {
                 categorize()
             } else if (menu == "associate") {
-                // function
-            } else if (menu == "cancel") {
+                associate()
+            } else if (menu == "done") {
                 // function
                 cancelEdit()
             }
@@ -394,7 +495,7 @@ window.onload = function() {
         })
     })
 
-    //detele function
+    //delete function
     function del() {
         //delete
         if (delete_set[lastClicked] == false) {
@@ -429,5 +530,13 @@ window.onload = function() {
         categorize_back.style.display = "block"
         categorize_field.style.display = "block"
     }
+
+    //associate function
+    function associate() {
+        associateTextField.value = ""
+        associate_back.style.display = "block"
+        associate_field.style.display = "block"
+    }
+
 
 }
