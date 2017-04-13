@@ -51,8 +51,8 @@ window.onload = function() {
     var categorizeConfirm = document.getElementById('confirmButton_Categorize')
     var categorizeClose = document.getElementById('cancelInput_Categorize')
 
-    // Dictinary used for Categorize
-    var categorize_dictinary = []
+    // Dictinary used for Categorize, indexed by word with the category as the value
+    var categorize_dictinary = {}
 
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
@@ -295,27 +295,8 @@ window.onload = function() {
             itemX.style.opacity = "1"
         })
 
-        // The word value pair, that will be pushed to the array
-        var word_category_pair = {word:new_string, category:my_category}
-
-        // Delete old instance of word from dictinary
-        for (var j =0, length = categorize_dictinary.length; j<length; j++) {
-          // Chrome kept giving me an error when the comparison was true
-          // So I put it in a try catch block to remove it it an error is thrown
-          try {
-            if (categorize_dictinary[j].word == new_string) {
-              categorize_dictinary.splice(j, 1)
-            }
-          } catch (e) {
-            if(e) {
-              categorize_dictinary.splice(j, 1)
-            }
-          }
-
-        }
-
-        // Push to dictinary
-        categorize_dictinary.push(word_category_pair)
+        // Put the word in the category dictinary, indexed by the word
+        categorize_dictinary[new_string] = my_category
 
         // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
         menuItems[0].innerHTML = "Delete"
@@ -426,6 +407,19 @@ window.onload = function() {
 
     //categorize function
     function categorize() {
+        // The stripped down string, for finding the radio to select
+        var new_string = lastClicked.toLowerCase().replace(/[^a-zA-Z ]/g, "")
+        var my_class
+        // Setting the class, if the class is not in the dictinary it  will defualt to the first clas
+        if (typeof categorize_dictinary[new_string] != 'undefined') {
+          my_class = categorize_dictinary[new_string]
+        } else {
+          my_class = "categoryOne"
+        }
+        // Select the radio button for the current class
+        document.getElementById(my_class).checked = true
+
+        // Display the window
         categorize_back.style.display = "block"
         categorize_field.style.display = "block"
     }
