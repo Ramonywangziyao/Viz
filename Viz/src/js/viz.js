@@ -24,6 +24,7 @@ window.onload = function() {
     //tool menu associates
     var tooMenu = document.getElementById('toolMenu')
     var menuSet = document.getElementById('toolSet')
+    var exportButton = document.getElementById('exportButton')
     var menuIcons = document.getElementsByClassName('toolToken')
     var menuItems = menuSet.getElementsByTagName('li')
     //other required for functioning
@@ -79,6 +80,7 @@ window.onload = function() {
     fileInput.addEventListener('change', function(e) {
         var file = fileInput.files[0]
         var textType = /text.*/
+        exportButton.style.display = "inline"
 
         if (file.type.match(textType)) {
             var reader = new FileReader()
@@ -131,6 +133,7 @@ window.onload = function() {
                     })
                     clicked = true
                     lastClicked = str
+                    tooMenu.style.display = "block"
                     tooMenu.style.animation = "menuShow 0.5s forwards"
                     menuSet.style.animation = "fadein 1.5s forwards"
                     cancelBt.style.display = "none"
@@ -166,6 +169,7 @@ window.onload = function() {
         tooMenu.style.animation = "menuHide 0.5s forwards"
         menuSet.style.animation = "fadeout 0.2s forwards"
         onEditing = false
+        tooMenu.style.display = "none"
         cancelBt.style.display = "block"
     }
 
@@ -196,6 +200,10 @@ window.onload = function() {
 
     uploadBt.addEventListener('mouseout', function() {
         uploadBt.style.animation = 'outbt 0.6s forwards'
+    })
+
+    exportButton.addEventListener('click', function() {
+        exportTo()
     })
 
     //replace button confirm button clicked
@@ -245,6 +253,7 @@ window.onload = function() {
         footer.style.bottom = "0"
         tooMenu.style.animation = "menuHide 0.5s forwards"
         menuSet.style.animation = "fadeout 0.2s forwards"
+        exportButton.style.display = "none"
     })
 
     cancelBt.addEventListener('mouseover', function() {
@@ -253,6 +262,14 @@ window.onload = function() {
 
     cancelBt.addEventListener('mouseout', function() {
         cancelBt.style.animation = 'crsout 0.6s forwards'
+    })
+
+    exportButton.addEventListener('mouseover', function() {
+        exportButton.style.animation = 'crson 0.6s forwards'
+    })
+
+    exportButton.addEventListener('mouseout', function() {
+        exportButton.style.animation = 'crsout 0.6s forwards'
     })
 
     //replace window cancel button animations and style
@@ -338,6 +355,7 @@ window.onload = function() {
         footer.style.bottom = "0"
         tooMenu.style.animation = "menuHide 0.5s forwards"
         menuSet.style.animation = "fadeout 0.2s forwards"
+        fileInput.value = ""
     })
 
     cancelBt.addEventListener('mouseover', function() {
@@ -430,4 +448,10 @@ window.onload = function() {
         categorize_field.style.display = "block"
     }
 
+    function exportTo() {
+        var text = docText.innerHTML.replace(/<\/?span[^>]*>/g,"");
+        var filename = "outputdoc"
+        var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+        saveAs(blob, filename+".txt");
+    }
 }
