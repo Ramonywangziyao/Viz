@@ -172,19 +172,23 @@ a:hover {
     margin-right: 30px;
     cursor: pointer;
     cursor: hand;
-    color:white
+    color: white
 }
 
-#exportButton{
-  display: none;
+#exportButton {
+    display: none;
 }
 
 #menuSet {
     list-style: none;
     padding-top: 15px;
     position: absolute;
-    right:20px;
+    right: 20px;
     z-index: 20;
+}
+
+#currentWord {
+    color: #38b8b0;
 }
 
 #toolMenu {
@@ -212,7 +216,7 @@ a:hover {
 
 #toolSet li {
     display: inline;
-    margin: 40px;
+    margin: 30px;
     cursor: pointer;
     cursor: hand;
 }
@@ -224,6 +228,7 @@ span {
 
 #docText {
     color: white;
+    line-height: 200%;
 }
 
 #document {

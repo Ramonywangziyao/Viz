@@ -14,6 +14,8 @@ window.onload = function() {
 
     //where to replace innerHTML with doc contents
     var docText = document.getElementById('docText')
+    var docback = document.getElementById('document')
+    var returnTop = document.getElementById('returnTop')
 
     //wrappers
     var uploadBt = document.getElementById('upload-wrapper')
@@ -60,6 +62,7 @@ window.onload = function() {
 
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
+        returnTop.innerHTML = "Return Top"
         Array.prototype.forEach.call(spanWords, function(ele, idx) {
             var str = ele.innerHTML.toLowerCase().replace(/[^a-zA-Z ]/g, "")
             if (!dictionary_sameword.hasOwnProperty(str)) {
@@ -78,6 +81,33 @@ window.onload = function() {
         //*****highlight different categories
     }
 
+    function updateHighlight() {
+        for (var key in categorized_word_dictinary) {
+            Array.prototype.forEach.call(categorized_word_dictinary[key], function(ele, idx) {
+                if (key == "categoryOne") {
+                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
+                        word.style.background = "#513258"
+                    })
+                } else if (key == "categoryTwo") {
+                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
+                        word.style.background = "#675541"
+                    })
+                } else if (key == "categoryThree") {
+                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
+                        word.style.background = "#575c41"
+                    })
+                } else if (key == "categoryFour") {
+                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
+                        word.style.background = "#324b4d"
+                    })
+                } else if (key == "categoryFive") {
+                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
+                        word.style.background = "#472931"
+                    })
+                }
+            })
+        }
+    }
 
     //add event listener for upload button.
     fileInput.addEventListener('change', function(e) {
@@ -130,6 +160,8 @@ window.onload = function() {
                             itemX.style.color = ""
                         })
                     }
+                    menuItems[0].innerHTML = "Editing:\xa0\xa0" + str
+
                     docText.style.color = "#1f1f20"
                     Array.prototype.forEach.call(dictionary_sameword[str], function(itemX, index) {
                         itemX.style.color = "#ffffff"
@@ -142,9 +174,9 @@ window.onload = function() {
                     cancelBt.style.display = "none"
                     //modify the menu delete for the clicked word
                     if (delete_set[lastClicked] == false) {
-                        menuItems[0].innerHTML = "Delete"
+                        menuItems[1].innerHTML = "Delete"
                     } else {
-                        menuItems[0].innerHTML = "Undelete"
+                        menuItems[1].innerHTML = "Undelete"
                     }
                     onEditing = true
                 } else {
@@ -163,7 +195,7 @@ window.onload = function() {
         })
     }
 
-    function cancelEdit(){
+    function cancelEdit() {
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
             itemX.style.color = ""
         })
@@ -218,15 +250,15 @@ window.onload = function() {
 
         //modify the text for each origin node
         Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
-            var val = itemX.innerHTML.charAt(itemX.innerHTML.length-1)
+            var val = itemX.innerHTML.charAt(itemX.innerHTML.length - 1)
             //check for ending special characters
-            itemX.innerHTML = val.match(/[^a-zA-Z ]/g) ? replaceTextField.value+val : replaceTextField.value
+            itemX.innerHTML = val.match(/[^a-zA-Z ]/g) ? replaceTextField.value + val : replaceTextField.value
             itemX.style.textDecoration = "none"
             itemX.style.fontStyle = "italic"
             itemX.style.opacity = "1"
         })
 
-        menuItems[0].innerHTML = "Delete"
+        menuItems[1].innerHTML = "Delete"
         //update the dictionary for the word
         dictionary_sameword[newStr] = dictionary_sameword[lastClicked]
         delete_set[newStr] = false
@@ -275,6 +307,14 @@ window.onload = function() {
         exportButton.style.animation = 'crsout 0.6s forwards'
     })
 
+    returnTop.addEventListener('mouseover', function() {
+        returnTop.style.animation = 'crson 0.6s forwards'
+    })
+
+    returnTop.addEventListener('mouseout', function() {
+        returnTop.style.animation = 'crsout 0.6s forwards'
+    })
+
     //replace window cancel button animations and style
     replaceClose.addEventListener('click', function() {
         replace_back.style.display = "none"
@@ -289,9 +329,9 @@ window.onload = function() {
         replaceClose.style.animation = 'crsout 0.6s forwards'
     })
 
-/*************************************************************************/
-//Categorize window
-/*************************************************************************/
+    /*************************************************************************/
+    //Categorize window
+    /*************************************************************************/
     //categorize button confirm button clicked
     categorizeConfirm.addEventListener('click', function() {
         var my_category
@@ -306,9 +346,9 @@ window.onload = function() {
             var my_categories = document.getElementsByName("categories")
             // For loop to get the selected element
             for (var i = 0, length = my_categories.length; i < length; i++) {
-              if (my_categories[i].checked) {
-                my_category = my_categories[i].value
-              }
+                if (my_categories[i].checked) {
+                    my_category = my_categories[i].value
+                }
             }
 
             itemX.style.textDecoration = "none"
@@ -319,7 +359,7 @@ window.onload = function() {
         update_categories(new_string, my_category)
 
         // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
-        menuItems[0].innerHTML = "Delete"
+        menuItems[1].innerHTML = "Delete"
     })
 
     categorizeConfirm.addEventListener('mouseover', function() {
@@ -340,6 +380,7 @@ window.onload = function() {
         tooMenu.style.animation = "menuHide 0.5s forwards"
         menuSet.style.animation = "fadeout 0.2s forwards"
         fileInput.value = ""
+        returnTop.innerHTML = "Main"
     })
 
     cancelBt.addEventListener('mouseover', function() {
@@ -363,7 +404,7 @@ window.onload = function() {
     categorizeClose.addEventListener('mouseout', function() {
         categorizeClose.style.animation = 'crsout 0.6s forwards'
     })
-/*************************************************************************/
+    /*************************************************************************/
 
     //add click listener to menu options.
     //*****call your function here for different tasks here*****
@@ -401,7 +442,7 @@ window.onload = function() {
         //delete
         if (delete_set[lastClicked] == false) {
             delete_set[lastClicked] = true
-            menuItems[0].innerHTML = "Undelete"
+            menuItems[1].innerHTML = "Undelete"
             //cross words
             Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
                 itemX.style.textDecoration = "line-through"
@@ -410,7 +451,7 @@ window.onload = function() {
         } else {
             //undelete
             delete_set[lastClicked] = false
-            menuItems[0].innerHTML = "Delete"
+            menuItems[1].innerHTML = "Delete"
             //uncross
             Array.prototype.forEach.call(dictionary_sameword[lastClicked], function(itemX, index) {
                 itemX.style.textDecoration = "none"
@@ -422,35 +463,36 @@ window.onload = function() {
     // Function to update categorized_word_dictinary when a word is assigned a category, or it's category is updates
     // Also updates categorize_dictinary[word] to have the new category
     function update_categories(word, category) {
-      var my_class
-      // Get the current category of the word
-      if (typeof categorize_dictinary[word] != 'undefined') {
-        my_class = categorize_dictinary[word]
-      }
-
-      // If the word has a current category, remove it
-      if (typeof my_class != 'undefined') {
-        var index = categorized_word_dictinary[my_class].indexOf(word)
-        if (index > -1) {
-          categorized_word_dictinary[my_class].splice(index, 1)
-        } else {
-          // The word should be here, if it is not it was not added to this list as it was supposed to be
-          alert("An Error Has Occured!")
+        var my_class
+        // Get the current category of the word
+        if (typeof categorize_dictinary[word] != 'undefined') {
+            my_class = categorize_dictinary[word]
         }
-      }
 
-      // Check if current category is in categorized_word_dictinary
-      if (typeof categorized_word_dictinary[category] != 'undefined') {
-        // The category already exist, just add it the the array
-        categorized_word_dictinary[category].push(word)
-      } else {
-        // The category does not currently exist, create and array and put it in its place
-        var new_class = [word]
-        categorized_word_dictinary[category] = new_class
-      }
+        // If the word has a current category, remove it
+        if (typeof my_class != 'undefined') {
+            var index = categorized_word_dictinary[my_class].indexOf(word)
+            if (index > -1) {
+                categorized_word_dictinary[my_class].splice(index, 1)
+            } else {
+                // The word should be here, if it is not it was not added to this list as it was supposed to be
+                alert("An Error Has Occured!")
+            }
+        }
 
-      // Update categorize_dictinary with the new key pair
-      categorize_dictinary[word] = category
+        // Check if current category is in categorized_word_dictinary
+        if (typeof categorized_word_dictinary[category] != 'undefined') {
+            // The category already exist, just add it the the array
+            categorized_word_dictinary[category].push(word)
+        } else {
+            // The category does not currently exist, create and array and put it in its place
+            var new_class = [word]
+            categorized_word_dictinary[category] = new_class
+        }
+
+        // Update categorize_dictinary with the new key pair
+        categorize_dictinary[word] = category
+        updateHighlight()
     }
 
     //replace function
@@ -467,9 +509,9 @@ window.onload = function() {
         var my_class
         // Setting the class, if the class is not in the dictinary it  will defualt to the first clas
         if (typeof categorize_dictinary[new_string] != 'undefined') {
-          my_class = categorize_dictinary[new_string]
+            my_class = categorize_dictinary[new_string]
         } else {
-          my_class = "categoryOne"
+            my_class = "categoryOne"
         }
         // Select the radio button for the current class
         document.getElementById(my_class).checked = true
@@ -480,9 +522,14 @@ window.onload = function() {
     }
 
     function exportTo() {
-        var text = docText.innerHTML.replace(/<\/?span[^>]*>/g,"");
+        // this is for plain text of the original doc
+        // output text. Add a new one for json
+        var text = docText.innerHTML.replace(/<\/?span[^>]*>/g, "");
         var filename = "outputdoc"
-        var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-        saveAs(blob, filename+".txt");
+        //use blob. can diy text format
+        var blob = new Blob([text], {
+            type: "text/plain;charset=utf-8"
+        });
+        saveAs(blob, filename + ".txt");
     }
 }
