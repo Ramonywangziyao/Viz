@@ -52,8 +52,11 @@ window.onload = function() {
     var categorizeConfirm = document.getElementById('confirmButton_Categorize')
     var categorizeClose = document.getElementById('cancelInput_Categorize')
 
-    // Dictinary used for Categorize, indexed by word with the category as the value
+    // categorize_dictinary[word] = category
     var categorize_dictinary = {}
+
+    // name[category] = [word0, word1, ...]
+    var categorized_word_dictinary = {}
 
     //preprocess the doc text to create the hashtable.
     function preprocess(spanWords) {
@@ -312,8 +315,8 @@ window.onload = function() {
             itemX.style.opacity = "1"
         })
 
-        // Put the word in the category dictinary, indexed by the word
-        categorize_dictinary[new_string] = my_category
+        // Function that updates the category dictionaries
+        update_categories(new_string, my_category)
 
         // If the word was deleted, will be "undeleted," this allows word to be "redeleted"
         menuItems[0].innerHTML = "Delete"
@@ -414,6 +417,40 @@ window.onload = function() {
                 itemX.style.opacity = "1"
             })
         }
+    }
+
+    // Function to update categorized_word_dictinary when a word is assigned a category, or it's category is updates
+    // Also updates categorize_dictinary[word] to have the new category
+    function update_categories(word, category) {
+      var my_class
+      // Get the current category of the word
+      if (typeof categorize_dictinary[word] != 'undefined') {
+        my_class = categorize_dictinary[word]
+      }
+
+      // If the word has a current category, remove it
+      if (typeof my_class != 'undefined') {
+        var index = categorized_word_dictinary[my_class].indexOf(word)
+        if (index > -1) {
+          categorized_word_dictinary[my_class].splice(index, 1)
+        } else {
+          // The word should be here, if it is not it was not added to this list as it was supposed to be
+          alert("An Error Has Occured!")
+        }
+      }
+
+      // Check if current category is in categorized_word_dictinary
+      if (typeof categorized_word_dictinary[category] != 'undefined') {
+        // The category already exist, just add it the the array
+        categorized_word_dictinary[category].push(word)
+      } else {
+        // The category does not currently exist, create and array and put it in its place
+        var new_class = [word]
+        categorized_word_dictinary[category] = new_class
+      }
+
+      // Update categorize_dictinary with the new key pair
+      categorize_dictinary[word] = category
     }
 
     //replace function
