@@ -83,28 +83,26 @@ window.onload = function() {
 
     function updateHighlight() {
         for (var key in categorized_word_dictinary) {
+            var color = ''
+            if (key == "categoryOne") {
+                color = "#513258"
+            }
+            if (key == "categoryTwo") {
+                color = "#675541"
+            }
+            if (key == "categoryThree") {
+                color = "#575c41"
+            }
+            if (key == "categoryFour") {
+                color = "#324b4d"
+            }
+            if (key == "categoryFive") {
+                color = "#472931"
+            }
             Array.prototype.forEach.call(categorized_word_dictinary[key], function(ele, idx) {
-                if (key == "categoryOne") {
-                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
-                        word.style.background = "#513258"
-                    })
-                } else if (key == "categoryTwo") {
-                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
-                        word.style.background = "#675541"
-                    })
-                } else if (key == "categoryThree") {
-                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
-                        word.style.background = "#575c41"
-                    })
-                } else if (key == "categoryFour") {
-                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
-                        word.style.background = "#324b4d"
-                    })
-                } else if (key == "categoryFive") {
-                    Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
-                        word.style.background = "#472931"
-                    })
-                }
+                Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
+                    word.style.background = color
+                })
             })
         }
     }
