@@ -85,19 +85,19 @@ window.onload = function() {
         for (var key in categorized_word_dictinary) {
             var color = ''
             if (key == "categoryOne") {
-                color = "#513258"
+                color = "#70437a"
             }
             if (key == "categoryTwo") {
-                color = "#675541"
+                color = "#826e58"
             }
             if (key == "categoryThree") {
-                color = "#575c41"
+                color = "#7c8260"
             }
             if (key == "categoryFour") {
-                color = "#324b4d"
+                color = "#4e777a"
             }
             if (key == "categoryFive") {
-                color = "#472931"
+                color = "#7e4453"
             }
             Array.prototype.forEach.call(categorized_word_dictinary[key], function(ele, idx) {
                 Array.prototype.forEach.call(dictionary_sameword[ele], function(word, i) {
